@@ -494,7 +494,7 @@ public class PresidentHumanPlayer extends GameHumanPlayer implements View.OnClic
 
 
 
-
+//
         }
     }
 }
