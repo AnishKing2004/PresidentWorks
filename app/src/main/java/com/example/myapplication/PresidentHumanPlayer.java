@@ -62,12 +62,26 @@ public class PresidentHumanPlayer extends GameHumanPlayer implements View.OnClic
             return;
         }
 
-
         PresidentGameState pgs = (PresidentGameState) info;
 
+        card.assignImages(gameState.allPlayers[0][0], iv_card1);
+        card.assignImages(gameState.allPlayers[0][1], iv_card2);
+        card.assignImages(gameState.allPlayers[0][2], iv_card3);
+        card.assignImages(gameState.allPlayers[0][3], iv_card4);
+        card.assignImages(gameState.allPlayers[0][4], iv_card5);
+        card.assignImages(gameState.allPlayers[0][5], iv_card6);
+        card.assignImages(gameState.allPlayers[0][6], iv_card7);
+        card.assignImages(gameState.allPlayers[0][7], iv_card8);
+        card.assignImages(gameState.allPlayers[0][8], iv_card9);
+        card.assignImages(gameState.allPlayers[0][9], iv_card10);
+        card.assignImages(gameState.allPlayers[0][10], iv_card11);
+        card.assignImages(gameState.allPlayers[0][11], iv_card12);
+        card.assignImages(gameState.allPlayers[0][12], iv_card13);
+
+
+
+
         Log.i("Debug",name + " " + pgs.currentPlayer);
-
-
 
 
     }
@@ -101,33 +115,11 @@ public class PresidentHumanPlayer extends GameHumanPlayer implements View.OnClic
         iv_card13 = (ImageView) activity.findViewById(R.id.iv_card13);
         imageView2 = (ImageView) activity.findViewById(R.id.imageView2);
 
-        card.setCards();
 
-        //Assigns cards to a player's deck before moving
-        //to next player and reshuffling
-        for (int i = 0; i < 4; i++){
-            Collections.shuffle(card.cards);
-            for (int j  = 0; j < 13; j++){
-                gameState.allPlayers[i][j] = card.cards.get(j);
-            }
-        }
 
         //Resets game variable back to default
         gameState.currentPlayer = 0;
 
-        card.assignImages(gameState.allPlayers[0][0], iv_card1);
-        card.assignImages(gameState.allPlayers[0][1], iv_card2);
-        card.assignImages(gameState.allPlayers[0][2], iv_card3);
-        card.assignImages(gameState.allPlayers[0][3], iv_card4);
-        card.assignImages(gameState.allPlayers[0][4], iv_card5);
-        card.assignImages(gameState.allPlayers[0][5], iv_card6);
-        card.assignImages(gameState.allPlayers[0][6], iv_card7);
-        card.assignImages(gameState.allPlayers[0][7], iv_card8);
-        card.assignImages(gameState.allPlayers[0][8], iv_card9);
-        card.assignImages(gameState.allPlayers[0][9], iv_card10);
-        card.assignImages(gameState.allPlayers[0][10], iv_card11);
-        card.assignImages(gameState.allPlayers[0][11], iv_card12);
-        card.assignImages(gameState.allPlayers[0][12], iv_card13);
 
         iv_card1.setVisibility(View.VISIBLE);
         iv_card2.setVisibility(View.VISIBLE);
@@ -432,7 +424,7 @@ public class PresidentHumanPlayer extends GameHumanPlayer implements View.OnClic
 
     @Override
     public void onClick(View view) {
-        if(passButton instanceof Button){
+        if(passButton.equals(view) ){
 
             if (gameState.passCount == 3){
                 gameState.cardsAtPlay = 0;
@@ -454,7 +446,7 @@ public class PresidentHumanPlayer extends GameHumanPlayer implements View.OnClic
             this.game.sendAction(new PresidentPassAction(this));
         }
 
-        if(placeCards instanceof Button){
+        if(placeCards.equals(view)){
 
             if (card.legal(chosenCards, gameState.cardsAtPlay, gameState.currentCardNum)){
                 //Since the cards are the same number, the displayed image is the first chosen card

@@ -17,7 +17,7 @@ public class PresidentComputerPlayer extends GameComputerPlayer {
     protected void receiveInfo(GameInfo info) {
 
         PresidentGameState pgs = (PresidentGameState) info;
-        if(pgs.currentPlayer != 3 ){
+        if(pgs.currentPlayer != playerNum ){
             return;
         }
         PresidentPassAction ppa = new PresidentPassAction(this);

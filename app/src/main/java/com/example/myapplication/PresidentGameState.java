@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -42,6 +43,8 @@ public class PresidentGameState extends GameState {
     //Value of card in play
     public int currentCardNum = 0;
 
+    Cards card = new Cards();
+
 
 
     // ArrayList <GamePlayerType> player = new ArrayList<GamePlayerType>();
@@ -55,6 +58,17 @@ public class PresidentGameState extends GameState {
     public PresidentGameState() { // basic constructor intializing the variables
 
         allPlayers = new int[4][13];
+        card.setCards();
+
+        //Assigns cards to a player's deck before moving
+        //to next player and reshuffling
+        for (int i = 0; i < 4; i++){
+            Collections.shuffle(card.cards);
+            for (int j  = 0; j < 13; j++){
+                allPlayers[i][j] = card.cards.get(j);
+            }
+        }
+
         /*player.add(new GamePlayerType("Local Human Player") {
             @Override
             public GamePlayer createPlayer(String name) {

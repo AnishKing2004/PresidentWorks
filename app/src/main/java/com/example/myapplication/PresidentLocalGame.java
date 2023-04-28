@@ -25,6 +25,9 @@ public class PresidentLocalGame extends LocalGame {
 
     @Override
     protected boolean canMove(int playerIdx) {
+        if(playerIdx == presidentGameState.currentPlayer){
+            return true;
+        }
         return false;
     }
 
@@ -34,7 +37,7 @@ public class PresidentLocalGame extends LocalGame {
         int count = 0;
         for (int i = 0; i < 13; i++){
             if (presidentGameState.allPlayers[presidentGameState.currentPlayer][i] == 0)
-                count++;
+            {count++;}
         }
         //If 13 zeroes are counted, then the current player has won
         //and all of the buttons become unclickable
@@ -48,13 +51,12 @@ public class PresidentLocalGame extends LocalGame {
     protected boolean makeMove(GameAction action) {
 
         if(action instanceof PresidentPassAction){
-
-
-
             if(presidentGameState.currentPlayer > 3){
                 presidentGameState.currentPlayer = 0;
             }
+            presidentGameState.currentPlayer++;
             return true;
+
         } else if (action instanceof PresidentPlaceAction){
 
         }
