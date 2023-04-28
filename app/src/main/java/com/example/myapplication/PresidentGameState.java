@@ -83,6 +83,13 @@ public class PresidentGameState extends GameState {
 
     }
 
+    public void updateTurn(){
+        currentPlayer++;
+        if (currentPlayer > 3) {
+            currentPlayer = 0;
+        }
+    }
+
     /*//public void setPlayerId(int id){
         this.playerId = id;
     }*/

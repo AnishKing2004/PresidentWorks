@@ -61,4 +61,12 @@ public class PresidentLocalGame extends LocalGame {
 
         return false;
     }
+
+    @Override
+    protected void receiveInfo (Object obj){
+        if (obj instanceof PresidentPassAction){
+            presidentGameState.updateTurn();
+
+        }
+    }
 }
