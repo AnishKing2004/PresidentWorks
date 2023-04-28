@@ -14,7 +14,7 @@ import com.example.myapplication.R;
 /**
  * @author Yutaka Roberts
  * @author Anish Karumuri
- * @author Zella Run
+ * @author Zella Running
  * @author Calvin Phuong
  * @version April 2023
  */

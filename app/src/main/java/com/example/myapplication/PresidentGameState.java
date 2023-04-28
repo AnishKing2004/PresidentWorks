@@ -11,7 +11,7 @@ import com.example.game.infoMsg.GameState;
 /**
  * @author Yutaka Roberts
  * @author Anish Karumuri
- * @author Zella Run
+ * @author Zella Running
  * @author Calvin Phuong
  * @version April 2023
  *
