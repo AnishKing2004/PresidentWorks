@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.graphics.Color;
+import android.media.Image;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class PresidentHumanPlayer extends GameHumanPlayer implements View.OnClickListener {
-    ImageView iv_deck, iv_card1,iv_card2,iv_card3,iv_card4,iv_card5,iv_card6,iv_card7,iv_card8,iv_card9,iv_card10,iv_card11,iv_card12,iv_card13, imageView2;
+    public ImageView[] views = new ImageView[15];
     Cards card = new Cards();
 
     //PresidentComputerPlayer dumbAI = new PresidentComputerPlayer("kickDock");
@@ -35,9 +36,12 @@ public class PresidentHumanPlayer extends GameHumanPlayer implements View.OnClic
     TextView playerNumberText;
 
     PresidentUI presidentUI = new PresidentUI();
-    PresidentGameState gameState = new PresidentGameState();
+
+    int chosenCard = 0;
 
     private GameMainActivity myActivity;
+    private int actionCount = 0;
+    public PresidentGameState presidentGameState = new PresidentGameState();
 
     /**
      * constructor
@@ -45,9 +49,7 @@ public class PresidentHumanPlayer extends GameHumanPlayer implements View.OnClic
      * @param name the name of the player
      */
     public PresidentHumanPlayer(String name) {
-
         super(name);
-
     }
 
     @Override
@@ -64,20 +66,11 @@ public class PresidentHumanPlayer extends GameHumanPlayer implements View.OnClic
 
         PresidentGameState pgs = (PresidentGameState) info;
 
-        card.assignImages(gameState.allPlayers[0][0], iv_card1);
-        card.assignImages(gameState.allPlayers[0][1], iv_card2);
-        card.assignImages(gameState.allPlayers[0][2], iv_card3);
-        card.assignImages(gameState.allPlayers[0][3], iv_card4);
-        card.assignImages(gameState.allPlayers[0][4], iv_card5);
-        card.assignImages(gameState.allPlayers[0][5], iv_card6);
-        card.assignImages(gameState.allPlayers[0][6], iv_card7);
-        card.assignImages(gameState.allPlayers[0][7], iv_card8);
-        card.assignImages(gameState.allPlayers[0][8], iv_card9);
-        card.assignImages(gameState.allPlayers[0][9], iv_card10);
-        card.assignImages(gameState.allPlayers[0][10], iv_card11);
-        card.assignImages(gameState.allPlayers[0][11], iv_card12);
-        card.assignImages(gameState.allPlayers[0][12], iv_card13);
-
+        /*
+        for (int i = 1; i <= 13; i++){
+            card.assignImages(gameState.allPlayers[0][i - 1], views[i]);
+        }
+        */
 
 
 
@@ -99,402 +92,183 @@ public class PresidentHumanPlayer extends GameHumanPlayer implements View.OnClic
         chosenCardsTotal = (TextView) activity.findViewById(R.id.cardPlay);
         playerNumberText = (TextView) activity.findViewById((R.id.playerNumber));
 
-        iv_deck = (ImageView) activity.findViewById(R.id.iv_deck);
-        iv_card1 = (ImageView) activity.findViewById(R.id.iv_card1);
-        iv_card2 = (ImageView) activity.findViewById(R.id.iv_card2);
-        iv_card3 = (ImageView) activity.findViewById(R.id.iv_card3);
-        iv_card4 = (ImageView) activity.findViewById(R.id.iv_card4);
-        iv_card5 = (ImageView) activity.findViewById(R.id.iv_card5);
-        iv_card6 = (ImageView) activity.findViewById(R.id.iv_card6);
-        iv_card7 = (ImageView) activity.findViewById(R.id.iv_card7);
-        iv_card8 = (ImageView) activity.findViewById(R.id.iv_card8);
-        iv_card9 = (ImageView) activity.findViewById(R.id.iv_card9);
-        iv_card10 = (ImageView) activity.findViewById(R.id.iv_card10);
-        iv_card11 = (ImageView) activity.findViewById(R.id.iv_card11);
-        iv_card12 = (ImageView) activity.findViewById(R.id.iv_card12);
-        iv_card13 = (ImageView) activity.findViewById(R.id.iv_card13);
-        imageView2 = (ImageView) activity.findViewById(R.id.imageView2);
+        views[0] = (ImageView) activity.findViewById(R.id.iv_deck);
+        views[1] = (ImageView) activity.findViewById(R.id.iv_card1);
+        views[2] = (ImageView) activity.findViewById(R.id.iv_card2);
+        views[3] = (ImageView) activity.findViewById(R.id.iv_card3);
+        views[4] = (ImageView) activity.findViewById(R.id.iv_card4);
+        views[5] = (ImageView) activity.findViewById(R.id.iv_card5);
+        views[6] = (ImageView) activity.findViewById(R.id.iv_card6);
+        views[7] = (ImageView) activity.findViewById(R.id.iv_card7);
+        views[8] = (ImageView) activity.findViewById(R.id.iv_card8);
+        views[9] = (ImageView) activity.findViewById(R.id.iv_card9);
+        views[10] = (ImageView) activity.findViewById(R.id.iv_card10);
+        views[11] = (ImageView) activity.findViewById(R.id.iv_card11);
+        views[12] = (ImageView) activity.findViewById(R.id.iv_card12);
+        views[13] = (ImageView) activity.findViewById(R.id.iv_card13);
+        views[14] = (ImageView) activity.findViewById(R.id.imageView2);
 
+        for (int i = 1; i <= 13; i++){
+            views[i].setVisibility(View.VISIBLE);
+        }
+        card.assignImages(500, views[14]);
 
-
-        //Resets game variable back to default
-        gameState.currentPlayer = 0;
-
-
-        iv_card1.setVisibility(View.VISIBLE);
-        iv_card2.setVisibility(View.VISIBLE);
-        iv_card3.setVisibility(View.VISIBLE);
-        iv_card4.setVisibility(View.VISIBLE);
-        iv_card5.setVisibility(View.VISIBLE);
-        iv_card6.setVisibility(View.VISIBLE);
-        iv_card7.setVisibility(View.VISIBLE);
-        iv_card8.setVisibility(View.VISIBLE);
-        iv_card9.setVisibility(View.VISIBLE);
-        iv_card10.setVisibility(View.VISIBLE);
-        iv_card11.setVisibility(View.VISIBLE);
-        iv_card12.setVisibility(View.VISIBLE);
-        iv_card13.setVisibility(View.VISIBLE);
-        card.assignImages(500,imageView2);
 
         placeCards.setOnClickListener(this);
         passButton.setOnClickListener(this);
-        playerNumberText = presidentUI.updatePlayerNumberText(playerNumberText, gameState.currentPlayer, false);
 
+        for (int i = 0; i <= 13; i++){
+            views[i].setOnClickListener(this);
+        }
 
-
-
-        //All of the following onClickListeners have the same code tailored
-        //to each card
-        iv_card1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //If the card isn't raised, then it becomes raised
-                //and is added as a chosen card
-                if (iv_card1.getPaddingBottom() == 0) {
-                    iv_card1.setPadding(0, 0, 0, 50);
-                    chosenCards.add(gameState.allPlayers[gameState.currentPlayer][0]);
-                }
-                //If the card is raised, then it returns to its original position
-                //and is removed as a chosen card
-                else {
-                    iv_card1.setPadding(0, 0, 0, 0);
-                    chosenCards.remove(Integer.valueOf(gameState.allPlayers[gameState.currentPlayer][0]));
-                }
-
-                //Checks if the chosen cards are legal so the placeCards button
-                //can have the correct color
-                if (card.legal(chosenCards, gameState.cardsAtPlay, gameState.currentCardNum)){
-                    presidentUI.updateButtonColor(placeCards, Color.GREEN);
-                }
-                else{
-                    presidentUI.updateButtonColor(placeCards, Color.RED);
-                }
-            }
-        });
-        iv_card2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (iv_card2.getPaddingBottom() == 0) {
-                    iv_card2.setPadding(0, 0, 0, 50);
-                    chosenCards.add(gameState.allPlayers[gameState.currentPlayer][1]);
-                }
-                else {
-                    iv_card2.setPadding(0, 0, 0, 0);
-                    chosenCards.remove(Integer.valueOf(gameState.allPlayers[gameState.currentPlayer][1]));
-                }
-
-                if (card.legal(chosenCards, gameState.cardsAtPlay, gameState.currentCardNum)){
-                    presidentUI.updateButtonColor(placeCards, Color.GREEN);
-                }
-                else{
-                    presidentUI.updateButtonColor(placeCards, Color.RED);
-                }
-            }
-        });
-        iv_card3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (iv_card3.getPaddingBottom() == 0) {
-                    iv_card3.setPadding(0, 0, 0, 50);
-                    chosenCards.add(gameState.allPlayers[gameState.currentPlayer][2]);
-                }
-                else {
-                    iv_card3.setPadding(0, 0, 0, 0);
-                    chosenCards.remove(Integer.valueOf(gameState.allPlayers[gameState.currentPlayer][2]));
-                }
-
-                if (card.legal(chosenCards, gameState.cardsAtPlay, gameState.currentCardNum)){
-                    presidentUI.updateButtonColor(placeCards, Color.GREEN);
-                }
-                else{
-                    presidentUI.updateButtonColor(placeCards, Color.RED);
-                }
-            }
-        });
-        iv_card4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (iv_card4.getPaddingBottom() == 0) {
-                    iv_card4.setPadding(0, 0, 0, 50);
-                    chosenCards.add(gameState.allPlayers[gameState.currentPlayer][3]);
-                }
-                else {
-                    iv_card4.setPadding(0, 0, 0, 0);
-                    chosenCards.remove(Integer.valueOf(gameState.allPlayers[gameState.currentPlayer][3]));
-                }
-
-                if (card.legal(chosenCards, gameState.cardsAtPlay, gameState.currentCardNum)){
-                    presidentUI.updateButtonColor(placeCards, Color.GREEN);
-                }
-                else{
-                    presidentUI.updateButtonColor(placeCards, Color.RED);
-                }
-            }
-        });
-        iv_card5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (iv_card5.getPaddingBottom() == 0) {
-                    iv_card5.setPadding(0, 0, 0, 50);
-                    chosenCards.add(gameState.allPlayers[gameState.currentPlayer][4]);
-                }
-                else {
-                    iv_card5.setPadding(0, 0, 0, 0);
-                    chosenCards.remove(Integer.valueOf(gameState.allPlayers[gameState.currentPlayer][4]));
-                }
-
-                if (card.legal(chosenCards, gameState.cardsAtPlay, gameState.currentCardNum)){
-                    presidentUI.updateButtonColor(placeCards, Color.GREEN);
-                }
-                else{
-                    presidentUI.updateButtonColor(placeCards, Color.RED);
-                }
-            }
-        });
-        iv_card6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (iv_card6.getPaddingBottom() == 0) {
-                    iv_card6.setPadding(0, 0, 0, 50);
-                    chosenCards.add(gameState.allPlayers[gameState.currentPlayer][5]);
-                }
-                else {
-                    iv_card6.setPadding(0, 0, 0, 0);
-                    chosenCards.remove(Integer.valueOf(gameState.allPlayers[gameState.currentPlayer][5]));
-                }
-
-                if (card.legal(chosenCards, gameState.cardsAtPlay, gameState.currentCardNum)){
-                    presidentUI.updateButtonColor(placeCards, Color.GREEN);
-                }
-                else{
-                    presidentUI.updateButtonColor(placeCards, Color.RED);
-                }
-            }
-        });
-        iv_card7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (iv_card7.getPaddingBottom() == 0) {
-                    iv_card7.setPadding(0, 0, 0, 50);
-                    chosenCards.add(gameState.allPlayers[gameState.currentPlayer][6]);
-                }
-                else {
-                    iv_card7.setPadding(0, 0, 0, 0);
-                    chosenCards.remove(Integer.valueOf(gameState.allPlayers[gameState.currentPlayer][6]));
-                }
-
-                if (card.legal(chosenCards, gameState.cardsAtPlay, gameState.currentCardNum)){
-                    presidentUI.updateButtonColor(placeCards, Color.GREEN);
-                }
-                else{
-                    presidentUI.updateButtonColor(placeCards, Color.RED);
-                }
-            }
-        });
-        iv_card8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (iv_card8.getPaddingBottom() == 0) {
-                    iv_card8.setPadding(0, 0, 0, 50);
-                    chosenCards.add(gameState.allPlayers[gameState.currentPlayer][7]);
-                }
-                else {
-                    iv_card8.setPadding(0, 0, 0, 0);
-                    chosenCards.remove(Integer.valueOf(gameState.allPlayers[gameState.currentPlayer][7]));
-                }
-
-                if (card.legal(chosenCards, gameState.cardsAtPlay, gameState.currentCardNum)){
-                    presidentUI.updateButtonColor(placeCards, Color.GREEN);
-                }
-                else{
-                    presidentUI.updateButtonColor(placeCards, Color.RED);
-                }
-            }
-        });
-
-        iv_card9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (iv_card9.getPaddingBottom() == 0) {
-                    iv_card9.setPadding(0, 0, 0, 50);
-                    chosenCards.add(gameState.allPlayers[gameState.currentPlayer][8]);
-                }
-                else {
-                    iv_card9.setPadding(0, 0, 0, 0);
-                    chosenCards.remove(Integer.valueOf(gameState.allPlayers[gameState.currentPlayer][8]));
-                }
-
-                if (card.legal(chosenCards, gameState.cardsAtPlay, gameState.currentCardNum)){
-                    presidentUI.updateButtonColor(placeCards, Color.GREEN);
-                }
-                else{
-                    presidentUI.updateButtonColor(placeCards, Color.RED);
-                }
-            }
-        });
-
-        iv_card10.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (iv_card10.getPaddingBottom() == 0) {
-                    iv_card10.setPadding(0, 0, 0, 50);
-                    chosenCards.add(gameState.allPlayers[gameState.currentPlayer][9]);
-                }
-                else {
-                    iv_card10.setPadding(0, 0, 0, 0);
-                    chosenCards.remove(Integer.valueOf(gameState.allPlayers[gameState.currentPlayer][9]));
-                }
-
-                if (card.legal(chosenCards, gameState.cardsAtPlay, gameState.currentCardNum)){
-                    presidentUI.updateButtonColor(placeCards, Color.GREEN);
-                }
-                else{
-                    presidentUI.updateButtonColor(placeCards, Color.RED);
-                }
-            }
-        });
-
-        iv_card11.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (iv_card11.getPaddingBottom() == 0) {
-                    iv_card11.setPadding(0, 0, 0, 50);
-                    chosenCards.add(gameState.allPlayers[gameState.currentPlayer][10]);
-                }
-                else {
-                    iv_card11.setPadding(0, 0, 0, 0);
-                    chosenCards.remove(Integer.valueOf(gameState.allPlayers[gameState.currentPlayer][10]));
-                }
-
-                if (card.legal(chosenCards, gameState.cardsAtPlay, gameState.currentCardNum)){
-                    presidentUI.updateButtonColor(placeCards, Color.GREEN);
-                }
-                else{
-                    presidentUI.updateButtonColor(placeCards, Color.RED);
-                }
-            }
-        });
-
-        iv_card12.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (iv_card12.getPaddingBottom() == 0) {
-                    iv_card12.setPadding(0, 0, 0, 50);
-                    chosenCards.add(gameState.allPlayers[gameState.currentPlayer][11]);
-                }
-                else {
-                    iv_card12.setPadding(0, 0, 0, 0);
-                    chosenCards.remove(Integer.valueOf(gameState.allPlayers[gameState.currentPlayer][11]));
-                }
-
-                if (card.legal(chosenCards, gameState.cardsAtPlay, gameState.currentCardNum)){
-                    presidentUI.updateButtonColor(placeCards, Color.GREEN);
-                }
-                else{
-                    presidentUI.updateButtonColor(placeCards, Color.RED);
-                }
-            }
-        });
-
-        iv_card13.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (iv_card13.getPaddingBottom() == 0) {
-                    iv_card13.setPadding(0, 0, 0, 50);
-                    chosenCards.add(gameState.allPlayers[gameState.currentPlayer][12]);
-                }
-                else {
-                    iv_card13.setPadding(0, 0, 0, 0);
-                    chosenCards.remove(Integer.valueOf(gameState.allPlayers[gameState.currentPlayer][12]));
-                }
-
-                if (card.legal(chosenCards, gameState.cardsAtPlay, gameState.currentCardNum)){
-                    presidentUI.updateButtonColor(placeCards, Color.GREEN);
-                }
-                else{
-                    presidentUI.updateButtonColor(placeCards, Color.RED);
-                }
-            }
-        });
-
-
-
-
+        playerNumberText = presidentUI.updatePlayerNumberText(playerNumberText, 0, false);
     }
 
     @Override
     public void onClick(View view) {
-        if(passButton.equals(view) ){
-
-            if (gameState.passCount == 3){
-                gameState.cardsAtPlay = 0;
-                card.assignImages(500,imageView2);
-                gameState.passCount = 0;
-
-                presidentUI.updateChosenCardsTotal(chosenCardsTotal,gameState.cardsAtPlay);
-
-            }
-            if(gameState.currentPlayer == 3){
-                gameState.currentPlayer = 0;
-            }
-            gameState.currentPlayer++;
-            playerNumberText = presidentUI.updatePlayerNumberText(playerNumberText, gameState.currentPlayer, false);
-
-
-
-
+        PresidentLocalGame plg = new PresidentLocalGame();
+        if (passButton.equals(view)) {
             this.game.sendAction(new PresidentPassAction(this));
-        }
+            if (actionCount > 0){
+                //Update current player's turn
+                presidentGameState.updateTurn();
+                presidentGameState.passCount++;
+                views = updateCards(views, presidentGameState.getCards(presidentGameState.currentPlayer));
+                views = presidentUI.resetCards(views);
+                playerNumberText.setText("Player " + (presidentGameState.currentPlayer + 1));
+                presidentGameState.chosenCards.clear();
 
-        if(placeCards.equals(view)){
-
-            if (card.legal(chosenCards, gameState.cardsAtPlay, gameState.currentCardNum)){
-                //Since the cards are the same number, the displayed image is the first chosen card
-                card.assignImages(chosenCards.get(0), imageView2);
-                iv_deck.setVisibility(View.VISIBLE);
-                gameState.cardsAtPlay = chosenCards.size();
-                //Updates current card value to chosen card value
-                gameState.currentCardNum = chosenCards.get(0) % 100;
-                presidentUI.updateChosenCardsTotal(chosenCardsTotal, gameState.cardsAtPlay);
-                presidentUI.updateButtonColor(placeCards, Color.RED);
-                gameState.passCount = 0;
-
-                //Finds chosen cards in current player's hand and turns those values into 0
-                while (chosenCards.size() != 0){
-                    for (int i = 0; i < 13; i++){
-                        if (chosenCards.get(0) == gameState.allPlayers[gameState.currentPlayer][i]){
-                            gameState.allPlayers[gameState.currentPlayer][i] = 0;
-                            break;
-                        }
-                    }
-                    chosenCards.remove(Integer.valueOf(chosenCards.get(0)));
+                //If three passes have occurred, the round resets
+                if (presidentGameState.passCount == 3){
+                    presidentGameState.passCount = 0;
+                    presidentGameState.cardsAtPlay = 0;
+                    presidentGameState.currentCardNum = 0;
+                    card.assignImages(500, views[14]);
                 }
+            }
+            actionCount++;
+        }
+        else if (placeCards.equals(view)) {
+            this.game.sendAction(new PresidentPlaceAction(this));
+            if (actionCount > 0){
+                if (card.legal(presidentGameState.chosenCards, presidentGameState.cardsAtPlay, presidentGameState.currentCardNum)) {
+                    //Since the cards are the same number, the displayed image is the first chosen card
+                    card.assignImages(presidentGameState.chosenCards.get(0), views[14]);
+                    views[0].setVisibility(View.VISIBLE);
+                    presidentGameState.cardsAtPlay = presidentGameState.chosenCards.size();
+                    //Updates current card value to chosen card value
+                    presidentGameState.currentCardNum = presidentGameState.chosenCards.get(0) % 100;
+                    presidentUI.updateChosenCardsTotal(chosenCardsTotal, presidentGameState.cardsAtPlay);
+                    presidentUI.updateButtonColor(placeCards, Color.RED);
+                    presidentGameState.passCount = 0;
 
-                ImageView[] views = new ImageView[]{iv_card1,iv_card2,iv_card3,iv_card4,iv_card5,iv_card6,iv_card7,iv_card8,iv_card9,iv_card10,iv_card11,iv_card12,iv_card13, imageView2};
-                views = presidentUI.updateCards(views, gameState.allPlayers[gameState.currentPlayer]);
-                playerNumberText = presidentUI.updatePlayerNumberText(playerNumberText, gameState.currentPlayer, false);
-                //Otherwise, turn goes to next player
+                    //Finds chosen cards in current player's hand and turns those values into 0
+                    while (presidentGameState.chosenCards.size() != 0) {
+                        for (int i = 0; i < 13; i++) {
+                            if (presidentGameState.chosenCards.get(0) == presidentGameState.allPlayers[presidentGameState.currentPlayer][i]) {
+                                presidentGameState.allPlayers[presidentGameState.currentPlayer][i] = 0;
+                                break;
+                            }
+                        }
+                        presidentGameState.chosenCards.remove(Integer.valueOf(presidentGameState.chosenCards.get(0)));
+                    }
+
+                    views = updateCards(views, presidentGameState.getCards(presidentGameState.currentPlayer));
+                    playerNumberText = presidentUI.updatePlayerNumberText(playerNumberText, presidentGameState.currentPlayer, false);
 
 
                     //A check to ensure the currentPlayer stays with 0-3 range
-                    if (gameState.currentPlayer > 3) {
-                        gameState.currentPlayer = 0;
-                    }
+                    presidentGameState.updateTurn();
                     //Resets certain UI elements to prepare for the next player
-                    presidentUI.updateCards(views, gameState.allPlayers[gameState.currentPlayer]);
+                    views = presidentUI.updateCards(views, presidentGameState.allPlayers[presidentGameState.currentPlayer]);
                     views = presidentUI.resetCards(views);
-                    chosenCards.clear();
+                    presidentGameState.chosenCards.clear();
                     presidentUI.updateButtonColor(placeCards, Color.RED);
-                    playerNumberText = presidentUI.updatePlayerNumberText(playerNumberText, gameState.currentPlayer, false);
-                this.game.sendAction(new PresidentPassAction(this));
-
-
+                    playerNumberText = presidentUI.updatePlayerNumberText(playerNumberText, presidentGameState.currentPlayer, false);
+                }
             }
 
-
-
-
-//
+            //Counts all of the 0 values in current player's hand
+            int count = 0;
+            for (int i = 0; i < 13; i++){
+                if (presidentGameState.allPlayers[presidentGameState.currentPlayer][i] == 0)
+                    count++;
+            }
+            //If 13 zeroes are counted, then the current player has won
+            //and all of the buttons become unclickable
+            if (count == 13){
+                for (int i = 0; i < 13; i++){
+                    views[i].setClickable(false);
+                }
+                passButton.setClickable(false);
+                playerNumberText = presidentUI.updatePlayerNumberText(playerNumberText, presidentGameState.currentPlayer, true);
+            }
+            //Otherwise, turn goes to next player
+            else {
+                presidentGameState.currentPlayer++;
+                //A check to ensure the currentPlayer stays with 0-3 range
+                if (presidentGameState.currentPlayer > 3) {
+                    presidentGameState.currentPlayer = 0;
+                }
+                //Resets certain UI elements to prepare for the next player
+                presidentUI.updateCards(views, presidentGameState.allPlayers[presidentGameState.currentPlayer]);
+                views = presidentUI.resetCards(views);
+                chosenCards.clear();
+                presidentUI.updateButtonColor(placeCards, Color.RED);
+                playerNumberText = presidentUI.updatePlayerNumberText(playerNumberText, presidentGameState.currentPlayer, false);
+            }
+            actionCount++;
         }
+        else if (views[0].equals(view)){
+            views[0].setVisibility(View.INVISIBLE);
+            views[0].setClickable(false);
+            this.game.sendAction(new PresidentGiveHandAction(this));
+            if (actionCount > 0){
+
+            }
+            actionCount++;
+        }
+        else{
+            //All of the following onClickListeners have the same code tailored
+            //to each card
+            for (int i = 1; i <= 13; i++){
+                if (views[i].equals(view)){
+                    //If the card isn't raised, then it becomes raised
+                    //and is added as a chosen card
+                    if (views[i].getPaddingBottom() == 0) {
+                        views[i].setPadding(0, 0, 0, 50);
+                        chosenCard = i;
+                        this.game.sendAction(new PresidentAddCardAction(this));
+                    }
+                    //If the card is raised, then it returns to its original position
+                    //and is removed as a chosen card
+                    else {
+                        views[i].setPadding(0, 0, 0, 0);
+                        chosenCard = i;
+                        this.game.sendAction(new PresidentRemoveCardAction(this));
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+    public ImageView[] updateCards(ImageView[] views, int[] stack){
+        for (int i = 1; i <= 13; i++){
+            //Turns card invisible if value is 0
+            if (stack[i - 1] == 0) {
+                views[i].setVisibility(View.INVISIBLE);
+                views[i].setClickable(false);
+            }
+            //Assigns image based on cards value
+            else{
+                card.assignImages(stack[i - 1], views[i]);
+                views[i].setVisibility(View.VISIBLE);
+                views[i].setClickable(true);
+            }
+
+            views[i].postInvalidate();
+        }
+        return views;
     }
 }

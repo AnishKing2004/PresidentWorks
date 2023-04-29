@@ -24,7 +24,7 @@ public class PresidentGameState extends GameState {
     final int numCardsDeck = 52;
     public boolean isCardCorrect; //check if the card is playable
     public boolean isCardVisible;
-    public boolean is3Spade; // dictates which player starts first
+    public ArrayList<Integer> chosenCards = new ArrayList<>();
 
     // public Object card;
 
@@ -93,8 +93,6 @@ public class PresidentGameState extends GameState {
         // cards;
         this.isCardCorrect = president.isCardCorrect;
         this.isCardVisible = president.isCardVisible;
-        this.is3Spade = president.is3Spade;
-
     }
 
     public void updateTurn(){
@@ -102,6 +100,10 @@ public class PresidentGameState extends GameState {
         if (currentPlayer > 3) {
             currentPlayer = 0;
         }
+    }
+
+    public int[] getCards(int player){
+        return allPlayers[player];
     }
 
     /*//public void setPlayerId(int id){
