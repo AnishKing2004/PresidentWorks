@@ -15,6 +15,7 @@ import com.example.game.infoMsg.GameState;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 /**
  * class PresidentHumanPlayer
@@ -156,6 +157,22 @@ public class PresidentHumanPlayer extends GameHumanPlayer implements View.OnClic
                     card.assignImages(500, views[14]);
                 }
             }
+            if (presidentGameState.currentPlayer == 1) {
+                passButton.performClick();
+            }
+            if (presidentGameState.currentPlayer == 3){
+                PresidentComputerPlayer dumbAI = new PresidentComputerPlayer("Dumb");
+                //AI chooses the lowest possible card(s) to play
+                chosenCards = dumbAI.pickCards(presidentGameState);
+                //Will play the chosen cards if they're legal
+                if (card.legal(chosenCards, presidentGameState.cardsAtPlay, presidentGameState.currentCardNum)){
+                    placeCards.performClick();
+                }
+                //Will pass otherwise
+                else{
+                    passButton.performClick();
+                }
+            }
             actionCount++;
         }
         else if (placeCards.equals(view)) {
@@ -198,36 +215,39 @@ public class PresidentHumanPlayer extends GameHumanPlayer implements View.OnClic
                     presidentUI.updateButtonColor(placeCards, Color.RED);
                     playerNumberText = presidentUI.updatePlayerNumberText(playerNumberText, presidentGameState.currentPlayer, false);
                 }
-            }
 
-            //Counts all of the 0 values in current player's hand
-            int count = 0;
-            for (int i = 0; i < 13; i++){
-                if (presidentGameState.allPlayers[presidentGameState.currentPlayer][i] == 0)
-                    count++;
-            }
-            //If 13 zeroes are counted, then the current player has won
-            //and all of the buttons become unclickable
-            if (count == 13){
+                //Counts all of the 0 values in current player's hand
+                int count = 0;
                 for (int i = 0; i < 13; i++){
-                    views[i].setClickable(false);
+                    if (presidentGameState.allPlayers[presidentGameState.currentPlayer][i] == 0)
+                        count++;
                 }
-                passButton.setClickable(false);
-                playerNumberText = presidentUI.updatePlayerNumberText(playerNumberText, presidentGameState.currentPlayer, true);
-            }
-            //Otherwise, turn goes to next player
-            else {
-                presidentGameState.currentPlayer++;
-                //A check to ensure the currentPlayer stays with 0-3 range
-                if (presidentGameState.currentPlayer > 3) {
-                    presidentGameState.currentPlayer = 0;
+                //If 13 zeroes are counted, then the current player has won
+                //and all of the buttons become unclickable
+                if (count == 13){
+                    for (int i = 1; i < 13; i++){
+                        views[i].setClickable(false);
+                    }
+                    passButton.setClickable(false);
+                    playerNumberText = presidentUI.updatePlayerNumberText(playerNumberText, presidentGameState.currentPlayer, true);
                 }
-                //Resets certain UI elements to prepare for the next player
-                presidentUI.updateCards(views, presidentGameState.allPlayers[presidentGameState.currentPlayer]);
-                views = presidentUI.resetCards(views);
-                chosenCards.clear();
-                presidentUI.updateButtonColor(placeCards, Color.RED);
-                playerNumberText = presidentUI.updatePlayerNumberText(playerNumberText, presidentGameState.currentPlayer, false);
+
+                if (presidentGameState.currentPlayer == 1) {
+                    passButton.performClick();
+                }
+                if (presidentGameState.currentPlayer == 3){
+                    PresidentComputerPlayer dumbAI = new PresidentComputerPlayer("Dumb");
+                    //AI chooses the lowest possible card(s) to play
+                    presidentGameState.chosenCards = dumbAI.pickCards(presidentGameState);
+                    //Will play the chosen cards if they're legal
+                    if (card.legal(presidentGameState.chosenCards, presidentGameState.cardsAtPlay, presidentGameState.currentCardNum)){
+                        placeCards.performClick();
+                    }
+                    //Will pass otherwise
+                    else{
+                        passButton.performClick();
+                    }
+                }
             }
             actionCount++;
         }
@@ -251,6 +271,18 @@ public class PresidentHumanPlayer extends GameHumanPlayer implements View.OnClic
                         views[i].setPadding(0, 0, 0, 50);
                         chosenCard = i;
                         this.game.sendAction(new PresidentAddCardAction(this));
+                        if (actionCount > 0){
+                            presidentGameState.chosenCards.add(presidentGameState.allPlayers[presidentGameState.currentPlayer][chosenCard - 1]);
+
+                            //Checks if the chosen cards are legal so the placeCards button
+                            //can have the correct color
+                            if (card.legal(presidentGameState.chosenCards, presidentGameState.cardsAtPlay, presidentGameState.currentCardNum)){
+                                presidentUI.updateButtonColor(placeCards, Color.GREEN);
+                            }
+                            else{
+                                presidentUI.updateButtonColor(placeCards, Color.RED);
+                            }
+                        }
                     }
                     //If the card is raised, then it returns to its original position
                     //and is removed as a chosen card
@@ -258,6 +290,18 @@ public class PresidentHumanPlayer extends GameHumanPlayer implements View.OnClic
                         views[i].setPadding(0, 0, 0, 0);
                         chosenCard = i;
                         this.game.sendAction(new PresidentRemoveCardAction(this));
+                        if (actionCount > 0){
+                            presidentGameState.chosenCards.remove(Integer.valueOf(presidentGameState.allPlayers[presidentGameState.currentPlayer][chosenCard - 1]));
+
+                            //Checks if the chosen cards are legal so the placeCards button
+                            //can have the correct color
+                            if (card.legal(presidentGameState.chosenCards, presidentGameState.cardsAtPlay, presidentGameState.currentCardNum)){
+                                presidentUI.updateButtonColor(placeCards, Color.GREEN);
+                            }
+                            else{
+                                presidentUI.updateButtonColor(placeCards, Color.RED);
+                            }
+                        }
                     }
                     break;
                 }

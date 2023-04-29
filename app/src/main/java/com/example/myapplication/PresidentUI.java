@@ -59,7 +59,7 @@ public class PresidentUI extends AppCompatActivity{
 
     //Updates cards' visibility and changes clickable
     public ImageView[] updateCards(ImageView[] views, int[] stack){
-        for (int i = 0; i < 13; i++){
+        for (int i = 1; i < 13; i++){
             //Turns card invisible if value is 0
             if (stack[i] == 0) {
                 views[i].setVisibility(View.INVISIBLE);
@@ -67,7 +67,7 @@ public class PresidentUI extends AppCompatActivity{
             }
             //Assigns image based on cards value
             else{
-                card.assignImages(stack[i], views[i]);
+                card.assignImages(stack[i - 1], views[i]);
                 views[i].setVisibility(View.VISIBLE);
                 views[i].setClickable(true);
             }
