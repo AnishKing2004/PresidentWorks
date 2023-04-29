@@ -3,6 +3,13 @@ package com.example.myapplication;
 import com.example.game.GameComputerPlayer;
 import com.example.game.infoMsg.GameInfo;
 
+/**
+ * class PresidentComputerPlayer
+ *
+ * This class holds the constructor for a computer player as well as a function to
+ * receive info.
+ *
+ */
 public class PresidentComputerPlayer extends GameComputerPlayer {
     /**
      * constructor
@@ -17,7 +24,7 @@ public class PresidentComputerPlayer extends GameComputerPlayer {
     protected void receiveInfo(GameInfo info) {
 
         PresidentGameState pgs = (PresidentGameState) info;
-        if(pgs.currentPlayer != 3 ){
+        if(pgs.currentPlayer != playerNum ){
             return;
         }
         PresidentPassAction ppa = new PresidentPassAction(this);

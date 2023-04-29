@@ -12,11 +12,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.R;
 
 /**
+ * class PresidentUI
+ *
+ * This file contains the code that initializes the different cards on the UI as well as
+ * updating the number of cards currently in play, the button color, the chosen cards
+ * and also the player who wins the game
+ *
  * @author Yutaka Roberts
  * @author Anish Karumuri
- * @author Zella Run
+ * @author Zella Running
  * @author Calvin Phuong
+ *
  * @version April 2023
+ *
  */
 public class PresidentUI extends AppCompatActivity{
 

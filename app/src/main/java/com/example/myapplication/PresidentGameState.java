@@ -2,15 +2,18 @@ package com.example.myapplication;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
 import com.example.game.infoMsg.GameState;
 
 /**
+ * class PresidentGameState
+ *
  * @author Yutaka Roberts
  * @author Anish Karumuri
- * @author Zella Run
+ * @author Zella Running
  * @author Calvin Phuong
  * @version April 2023
  *
@@ -23,7 +26,7 @@ public class PresidentGameState extends GameState {
     final int numCardsDeck = 52;
     public boolean isCardCorrect; //check if the card is playable
     public boolean isCardVisible;
-    public boolean is3Spade; // dictates which player starts first
+    public ArrayList<Integer> chosenCards = new ArrayList<>();
 
     // public Object card;
 
@@ -42,6 +45,8 @@ public class PresidentGameState extends GameState {
     //Value of card in play
     public int currentCardNum = 0;
 
+    Cards card = new Cards();
+
 
 
     // ArrayList <GamePlayerType> player = new ArrayList<GamePlayerType>();
@@ -55,6 +60,17 @@ public class PresidentGameState extends GameState {
     public PresidentGameState() { // basic constructor intializing the variables
 
         allPlayers = new int[4][13];
+        card.setCards();
+
+        //Assigns cards to a player's deck before moving
+        //to next player and reshuffling
+        for (int i = 0; i < 4; i++){
+            Collections.shuffle(card.cards);
+            for (int j  = 0; j < 13; j++){
+                allPlayers[i][j] = card.cards.get(j);
+            }
+        }
+
         /*player.add(new GamePlayerType("Local Human Player") {
             @Override
             public GamePlayer createPlayer(String name) {
@@ -79,8 +95,17 @@ public class PresidentGameState extends GameState {
         // cards;
         this.isCardCorrect = president.isCardCorrect;
         this.isCardVisible = president.isCardVisible;
-        this.is3Spade = president.is3Spade;
+    }
 
+    public void updateTurn(){
+        currentPlayer++;
+        if (currentPlayer > 3) {
+            currentPlayer = 0;
+        }
+    }
+
+    public int[] getCards(int player){
+        return allPlayers[player];
     }
 
     /*//public void setPlayerId(int id){

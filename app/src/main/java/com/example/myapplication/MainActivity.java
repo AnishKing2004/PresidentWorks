@@ -8,9 +8,17 @@ import com.example.game.GamePlayer;
 
 import java.util.ArrayList;
 
+/**
+ * class MainActivity
+ *
+ * This class is the main driver for our game
+ *
+ */
 public class MainActivity extends GameMainActivity {
 
     final public int PORT_NUMBER = 98898;
+
+
 
     @Override
     public GameConfig createDefaultConfig() {
@@ -19,7 +27,9 @@ public class MainActivity extends GameMainActivity {
         playerTypes.add(new GamePlayerType("Human Player") {
             @Override
             public GamePlayer createPlayer(String name) {
+
                 return new PresidentHumanPlayer(name);
+
             }
         });
 
@@ -33,7 +43,7 @@ public class MainActivity extends GameMainActivity {
             }
         });
 
-        playerTypes.add(new GamePlayerType("Dumb AI Player") {
+        playerTypes.add(new GamePlayerType("Smart Player") {
             @Override
             public GamePlayer createPlayer(String name) {
                 return new PresidentComputerPlayer(name);
