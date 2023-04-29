@@ -54,7 +54,7 @@ public class PresidentHumanPlayer extends GameHumanPlayer implements View.OnClic
     int chosenCard = 0;
 
     private GameMainActivity myActivity;
-    private int actionCount = 0;
+     int actionCount = 0;
     public PresidentGameState presidentGameState = new PresidentGameState();
 
     /**

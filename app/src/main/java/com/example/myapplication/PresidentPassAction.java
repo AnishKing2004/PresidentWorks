@@ -24,4 +24,6 @@ public class PresidentPassAction extends GameAction {
     public PresidentPassAction(GamePlayer player) {
         super(player);
     }
+
+
 }
