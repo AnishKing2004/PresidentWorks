@@ -11,7 +11,9 @@ import java.util.ArrayList;
 /**
  * class MainActivity
  *
- * This class is the main driver for our game
+ * This class creates the lading screen and type of players
+ * For now the game is only one payer, one dumb AI player and 2 smart AI players
+ * We weren't able to let user decide but we hope to implement that option in the future
  *
  */
 public class MainActivity extends GameMainActivity {

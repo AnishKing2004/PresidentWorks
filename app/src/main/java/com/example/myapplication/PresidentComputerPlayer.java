@@ -6,8 +6,7 @@ import com.example.game.infoMsg.GameInfo;
 /**
  * class PresidentComputerPlayer
  *
- * This class holds the constructor for a computer player as well as a function to
- * receive info.
+ * This file contains the constructor for the dumb AI as well as it's receive info
  *
  */
 public class PresidentComputerPlayer extends GameComputerPlayer {

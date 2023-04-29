@@ -15,6 +15,8 @@ import com.example.game.actionMsg.GameAction;
  * such as if the game is over and if a player can make a move. This class also hold functions to
  * sent and receive info from players
  *
+ *
+ *
  */
 
 public class PresidentLocalGame extends LocalGame {

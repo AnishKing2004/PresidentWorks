@@ -18,10 +18,9 @@ import java.util.Collections;
 
 /**
  * class PresidentHumanPlayer
+ * This class lets us setup the default UI
+ * We can also edit the UI here based on each of the players action
  *
- * This class holds the constructor a human player and implements the onCLickListener to
- * allow the human player to interact with the UI by implementing onClicks for each
- * card in the player's hand
  *
  */
 public class PresidentHumanPlayer extends GameHumanPlayer implements View.OnClickListener {
@@ -130,6 +129,8 @@ public class PresidentHumanPlayer extends GameHumanPlayer implements View.OnClic
         }
 
         playerNumberText = presidentUI.updatePlayerNumberText(playerNumberText, 0, false);
+
+
     }
 
     @Override
@@ -145,6 +146,7 @@ public class PresidentHumanPlayer extends GameHumanPlayer implements View.OnClic
                 views = presidentUI.resetCards(views);
                 playerNumberText.setText("Player " + (presidentGameState.currentPlayer + 1));
                 presidentGameState.chosenCards.clear();
+                views[0].setVisibility(View.INVISIBLE);
 
                 //If three passes have occurred, the round resets
                 if (presidentGameState.passCount == 3){
@@ -169,6 +171,8 @@ public class PresidentHumanPlayer extends GameHumanPlayer implements View.OnClic
                     presidentUI.updateChosenCardsTotal(chosenCardsTotal, presidentGameState.cardsAtPlay);
                     presidentUI.updateButtonColor(placeCards, Color.RED);
                     presidentGameState.passCount = 0;
+
+
 
                     //Finds chosen cards in current player's hand and turns those values into 0
                     while (presidentGameState.chosenCards.size() != 0) {
