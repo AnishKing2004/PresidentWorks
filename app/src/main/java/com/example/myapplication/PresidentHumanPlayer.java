@@ -131,6 +131,15 @@ public class PresidentHumanPlayer extends GameHumanPlayer implements View.OnClic
 
         playerNumberText = presidentUI.updatePlayerNumberText(playerNumberText, 0, false);
 
+        int count = 0;
+
+        count++;
+
+
+
+
+
+
 
     }
 
@@ -148,6 +157,22 @@ public class PresidentHumanPlayer extends GameHumanPlayer implements View.OnClic
                 playerNumberText.setText("Player " + (presidentGameState.currentPlayer + 1));
                 presidentGameState.chosenCards.clear();
                 views[0].setVisibility(View.INVISIBLE);
+                //Counts all of the 0 values in current player's hand
+                int count = 0;
+                for (int i = 0; i < 13; i++){
+                    if (presidentGameState.allPlayers[presidentGameState.currentPlayer][i] == 0)
+                        count++;
+                }
+                //If 13 zeroes are counted, then the current player has won
+                //and all of the buttons become unclickable
+                if (count == 13){
+                    for (int i = 0; i < 13; i++){
+                        views[i].setClickable(false);
+                    }
+                    passButton.setClickable(false);
+                    playerNumberText = presidentUI.updatePlayerNumberText(playerNumberText, presidentGameState.currentPlayer, true);
+                }
+
 
                 //If three passes have occurred, the round resets
                 if (presidentGameState.passCount == 3){
@@ -157,10 +182,18 @@ public class PresidentHumanPlayer extends GameHumanPlayer implements View.OnClic
                     card.assignImages(500, views[14]);
                 }
             }
+
+
             if (presidentGameState.currentPlayer == 1) {
+                views[0].setVisibility(View.INVISIBLE);
+                views[0].setClickable(false);
                 passButton.performClick();
             }
+
+
             if (presidentGameState.currentPlayer == 3){
+                views[0].setVisibility(View.INVISIBLE);
+                views[0].setClickable(false);
                 PresidentComputerPlayer dumbAI = new PresidentComputerPlayer("Dumb");
                 //AI chooses the lowest possible card(s) to play
                 chosenCards = dumbAI.pickCards(presidentGameState);

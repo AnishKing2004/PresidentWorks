@@ -68,7 +68,11 @@ public class PresidentLocalGame extends LocalGame {
 
     @Override
     protected boolean makeMove(GameAction action) {
-        Log.i("wtf", String.format("%s", action.getClass().toString()));
+
+        if(presidentGameState.currentPlayer == 0){
+            presidentGameState.currentPlayer = presidentGameState.currentPlayer + 3;
+        }
+        Log.i("madeMove", String.format("%s", action.getClass().toString()));
         //Pass Action
         if(action instanceof PresidentPassAction){
             PresidentHumanPlayer php = (PresidentHumanPlayer) action.getPlayer();
