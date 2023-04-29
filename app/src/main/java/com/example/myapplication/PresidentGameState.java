@@ -9,6 +9,8 @@ import java.util.List;
 import com.example.game.infoMsg.GameState;
 
 /**
+ * class PresidentGameState
+ *
  * @author Yutaka Roberts
  * @author Anish Karumuri
  * @author Zella Running

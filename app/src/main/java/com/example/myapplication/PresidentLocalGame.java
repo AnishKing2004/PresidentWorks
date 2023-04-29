@@ -4,6 +4,14 @@ import com.example.game.GamePlayer;
 import com.example.game.LocalGame;
 import com.example.game.actionMsg.GameAction;
 
+/**
+ * class PresidentLocalGame
+ *
+ * This class contains the constructor for a PresidentLocalGame as well as some checks for the game
+ * such as if the game is over and if a player can make a move. This class also hold functions to
+ * sent and receive info from players
+ *
+ */
 
 public class PresidentLocalGame extends LocalGame {
     PresidentGameState presidentGameState;

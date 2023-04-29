@@ -8,6 +8,12 @@ import com.example.game.GamePlayer;
 
 import java.util.ArrayList;
 
+/**
+ * class MainActivity
+ *
+ * This class is the main driver for our game
+ *
+ */
 public class MainActivity extends GameMainActivity {
 
     final public int PORT_NUMBER = 98898;

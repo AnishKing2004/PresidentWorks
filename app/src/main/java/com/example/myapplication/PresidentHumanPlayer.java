@@ -15,6 +15,14 @@ import com.example.game.infoMsg.GameState;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * class PresidentHumanPlayer
+ *
+ * This class holds the constructor a human player and implements the onCLickListener to
+ * allow the human player to interact with the UI by implementing onClicks for each
+ * card in the player's hand
+ *
+ */
 public class PresidentHumanPlayer extends GameHumanPlayer implements View.OnClickListener {
     ImageView iv_deck, iv_card1,iv_card2,iv_card3,iv_card4,iv_card5,iv_card6,iv_card7,iv_card8,iv_card9,iv_card10,iv_card11,iv_card12,iv_card13, imageView2;
     Cards card = new Cards();
