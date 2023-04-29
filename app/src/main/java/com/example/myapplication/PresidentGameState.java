@@ -70,21 +70,6 @@ public class PresidentGameState extends GameState {
                 allPlayers[i][j] = card.cards.get(j);
             }
         }
-
-        /*player.add(new GamePlayerType("Local Human Player") {
-            @Override
-            public GamePlayer createPlayer(String name) {
-                return new HumanPlayer(name);
-            }
-        });
-
-        player.add(new GamePlayerType("Local Computer Player") {
-            @Override
-            public GamePlayer createPlayer(String name) {
-                return new PresidentComputerPlayer(name);
-            }
-        });*/
-
         currentPlayer = 0;
 
 
@@ -108,15 +93,7 @@ public class PresidentGameState extends GameState {
         return allPlayers[player];
     }
 
-    /*//public void setPlayerId(int id){
-        this.playerId = id;
-    }*/
 
-    /*  public int getPlayerId() {return playerId;}*/
-
-//    //public int getCurrentPlayer(){
-//        return currentPlayer;
-//    }
 
 
 

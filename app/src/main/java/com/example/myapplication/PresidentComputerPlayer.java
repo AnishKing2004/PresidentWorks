@@ -8,7 +8,13 @@ import java.util.ArrayList;
 /**
  * class PresidentComputerPlayer
  *
- * This file contains the constructor for the dumb AI as well as it's receive info
+ *   @author Yutaka Roberts
+ *   @author Anish Karumuri
+ *   @author Zella Running
+ *   @author Calvin Phuong
+ *   @version April 2023
+ *
+ * This file contains the constructor for the Smart AI as well as it's receive info
  *
  */
 public class PresidentComputerPlayer extends GameComputerPlayer {

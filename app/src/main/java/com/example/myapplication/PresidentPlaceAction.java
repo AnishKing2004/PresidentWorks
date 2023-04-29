@@ -13,6 +13,12 @@ public class PresidentPlaceAction extends GameAction {
     /**
      * constructor for GameAction
      *
+     *   @author Yutaka Roberts
+     *   @author Anish Karumuri
+     *   @author Zella Running
+     *   @author Calvin Phuong
+     *   @version April 2023
+     *
      * @param player the player who created the action
      */
     public PresidentPlaceAction(GamePlayer player) {

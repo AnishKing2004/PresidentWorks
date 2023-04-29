@@ -22,6 +22,12 @@ import java.util.Random;
  * This class lets us setup the default UI
  * We can also edit the UI here based on each of the players action
  *
+ *   @author Yutaka Roberts
+ *   @author Anish Karumuri
+ *   @author Zella Running
+ *   @author Calvin Phuong
+ *   @version April 2023
+ *
  *
  */
 public class PresidentHumanPlayer extends GameHumanPlayer implements View.OnClickListener {

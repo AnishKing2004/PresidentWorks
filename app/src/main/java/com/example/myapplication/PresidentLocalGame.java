@@ -15,6 +15,12 @@ import com.example.game.actionMsg.GameAction;
  * such as if the game is over and if a player can make a move. This class also hold functions to
  * sent and receive info from players
  *
+ *   @author Yutaka Roberts
+ *   @author Anish Karumuri
+ *   @author Zella Running
+ *   @author Calvin Phuong
+ *   @version April 2023
+ *
  *
  *
  */
@@ -69,9 +75,7 @@ public class PresidentLocalGame extends LocalGame {
     @Override
     protected boolean makeMove(GameAction action) {
 
-        if(presidentGameState.currentPlayer == 0){
-            presidentGameState.currentPlayer = presidentGameState.currentPlayer + 3;
-        }
+
         Log.i("madeMove", String.format("%s", action.getClass().toString()));
         //Pass Action
         if(action instanceof PresidentPassAction){
@@ -172,7 +176,9 @@ public class PresidentLocalGame extends LocalGame {
                 php.card.assignImages(presidentGameState.allPlayers[0][i - 1], php.views[i]);
             }
         }
-
+        if(presidentGameState.currentPlayer == 0){
+            presidentGameState.currentPlayer = presidentGameState.currentPlayer + 3;
+        }
         return true;
     }
 

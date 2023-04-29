@@ -4,18 +4,22 @@ import com.example.game.GameComputerPlayer;
 import com.example.game.infoMsg.GameInfo;
 
 /**
- * class PresidentSmartComputer
- *
- * This file contains the constructor for the smart AI as well as it's receive info
+ * class PresidentDumbComputer
+ *   @author Yutaka Roberts
+ *   @author Anish Karumuri
+ *   @author Zella Running
+ *   @author Calvin Phuong
+ *   @version April 2023
+ * This file contains the constructor for the dumb AI as well as it's receive info
  *
  */
-public class PresidentSmartComputer extends GameComputerPlayer {
+public class PresidentDumbComputer extends GameComputerPlayer {
     /**
      * constructor
      *
      * @param name the player's name (e.g., "John")
      */
-    public PresidentSmartComputer(String name) {
+    public PresidentDumbComputer(String name) {
         super(name);
     }
 
