@@ -26,9 +26,8 @@ import java.util.ArrayList;
  * Bug #1: is that player 1 cards arent placed correctly on the first turn, but after that they r placed correctly
  * Bug #2: is that left hand deck comes back everytime its player 1's turn
  * Bug #3: is that player's 1 cards change at times, usually when nearing the end of the game
- *
- *
- *
+ * Bug #4: Have to skip the first round otherwise the cards aren't set correctly
+ * Bug #4: When the screen is tilted to either verticle or horizontal the game resets to default
  *
  *
  */
